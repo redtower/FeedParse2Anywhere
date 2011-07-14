@@ -16,7 +16,11 @@ has id       => (is => 'rw', isa => 'Str');
 sub getdata {
     my $self = shift;
     my $content = getxml($self->{'id'});
-    return parse($content);
+    if ($content) {
+        return parse($content);
+    } else {
+        return '';
+    }
 }
 
 sub parse($) {
