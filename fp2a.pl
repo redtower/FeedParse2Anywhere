@@ -60,7 +60,9 @@ if ($o{'kind'} =~ /grs/) {
     die 'kind error. set grs or hb. GoogleReaderStarred(grs) or HatenaBookmark(hb)';
 }
 my $items = $obj->getdata();
-put_result($o{'label'}, $items, $o{'from'});
+if ($items) {
+    put_result($o{'label'}, $items, $o{'from'});
+}
 
 sub put_result($$$) {
     my ($label, $items, $from) = @_;
