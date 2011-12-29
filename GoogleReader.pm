@@ -67,7 +67,7 @@ sub google_login($$) {
     my ($email, $pass) = @_;
     my $mech = WWW::Mechanize->new;
 
-    $mech->get('http://www.google.com/reader') || die $!;
+    $mech->get('http://www.google.com/reader') || return;
     $mech->submit_form(
         form_number => 1,
         fields => {
@@ -79,7 +79,7 @@ sub google_login($$) {
     $mech->get($mech->res->request->uri);
     my $refresh = $mech->res->headers->header('Refresh') or return;
     $refresh =~ /url='(.*)'/;
-    $mech->get($1);
+    $mech->get($1) or return;
     $mech->get($mech->res->request->uri);
 
     return $mech;
