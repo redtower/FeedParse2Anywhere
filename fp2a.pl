@@ -1,8 +1,9 @@
-#!/usr/bin/evn perl
+#!/usr/bin/env perl
 use strict;
 use warnings;
 use Getopt::Long;
-use Encode qw ( encode );
+use Encode qw( encode );
+use File::Basename qw( basename );
 
 use GoogleReader;
 use HatenaBookmark;
@@ -38,8 +39,8 @@ GetOptions(\%o,
     'version',
 ) or $o{'help'}++;
 
-show_usage() if $o{'help'} || !$o{'id'};
 show_version() if $o{'version'};
+show_usage() if $o{'help'} || !$o{'id'};
 
 my $obj;
 my $label;
@@ -128,5 +129,6 @@ EOD
 }
 
 sub show_version() {
-    print $VERSION;
+    print basename($0) . " Ver." . $VERSION . "\n";
+    exit;
 }
