@@ -24,4 +24,10 @@ install:
 	install -v -m 644 $(RESOURCES) $(RESOURCEDIR)
 	$(SEDVERSION) $(BINDIR)/fp2a.pl
 
-.PHONY: all help install
+release:
+	cp fp2a.pl fp2a.pl.tmp
+	$(SEDVERSION) fp2a.pl.tmp
+	tar --owner=0 --group=0 --transform 's!^!fp2a/!' --transform 's!fp2a.pl.tmp!fp2a.pl!' -zcf fp2a-$(VERSION).tar.gz fp2a.pl.tmp *.pm $(RESOURCES) Makefile
+	$(RM) fp2a.pl.tmp
+
+.PHONY: all help install release
