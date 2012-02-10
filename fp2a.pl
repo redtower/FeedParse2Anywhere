@@ -13,6 +13,9 @@ use Fp2aConfig;
 
 sub put_result($$$);
 sub show_usage();
+sub show_version();
+
+my $VERSION = 0;
 
 my %o =(
     'kind'=>'grs',
@@ -32,9 +35,11 @@ GetOptions(\%o,
     'tags=s',
     'help',
     'debug',
+    'version',
 ) or $o{'help'}++;
 
 show_usage() if $o{'help'} || !$o{'id'};
+show_version() if $o{'version'};
 
 my $obj;
 my $label;
@@ -117,6 +122,11 @@ Usage: perl $0 [Options]
    --tags tag           Tag Name
    --help               Show this message.
    --debug              Debug mode
+   --version            Show Version
 EOD
     exit;
+}
+
+sub show_version() {
+    print $VERSION;
 }
